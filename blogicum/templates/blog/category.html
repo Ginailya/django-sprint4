@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}
+  Публикации в категории {{ category.title }}
+{% endblock %}
+{% block content %}
+  <h1 class="text-center">Публикации в категории - {{ category.title }}</h1>
+  <p class="col-6 offset-3 mb-5 lead text-center">{{ category.description }}</p>
+  {% for post in page_obj %}
+    <article class="mb-5">  
+      {% include "includes/post_card.html" %}
+    </article>   
+  {% endfor %}
+  <div class="pagination">
+    {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}">Предыдущая</a>
+    {% endif %}
+    
+    <span>Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}</span>
+    
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">Следующая</a>
+    {% endif %}
+</div>
+  {% include "includes/paginator.html" %}
+{% endblock %}
